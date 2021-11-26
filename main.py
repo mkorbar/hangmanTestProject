@@ -1,6 +1,6 @@
 import random
 
-# import list of words and choose random word
+# import list of words
 
 with open('wordlist.txt', 'r') as word_file:
     wordlist = word_file.read().splitlines()
@@ -45,8 +45,8 @@ guess = ""
 interface = ""
 finished = False
 
-print(word)  # for debugging, remove afterwards
-print(letters)  # for debugging, remove afterwards
+# print(word)  # for debugging, remove afterwards
+# print(letters)  # for debugging, remove afterwards
 
 
 while not finished:
