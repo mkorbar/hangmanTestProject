@@ -1,14 +1,24 @@
 import random
 
+# define writing file if you need one
+
+
+def write_to_score_file(name, chosen_word, guesses):
+    with open('hangman_scores.txt', 'a') as score_file:
+        score_file.write(f"{name} {chosen_word} {str(guesses)}")
+
+
 # import list of words
 
 with open('wordlist.txt', 'r') as word_file:
     wordlist = word_file.read().splitlines()
 
+
 # ask player for their name and how difficult the game should be (number of letters)
 
 user_name = input("Hi! Let's play hangman. What's your name? ")
 user_difficulty = int(input("How long do you want the word to be? "))
+user_number_of_guesses = 0
 
 # check if length of word is even in the list of words
 
@@ -61,10 +71,12 @@ while not finished:
         if masked_letters[i] == "*":
             break
         if i == (len(masked_letters) - 1):
-            print("Congratulations, you've guessed it!")
+            print(f"Congratulations, you've guessed it in {str(user_number_of_guesses)} guesses!")
+            write_to_score_file(user_name, word, user_number_of_guesses)
             finished = True
 
     if finished:
         break
 
     guess = input("Guess a letter: ")
+    user_number_of_guesses += 1
