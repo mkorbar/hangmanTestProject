@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Play Hangman!{% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav_logo">
+
+        </div>
+        <ul class="nav_links">
+            <li>About</li>
+            <li>Contact</li>
+            <li>{% block nav_account %}Account / Log in{% endblock nav_account %}</li>
+        </ul>
+    </nav>
+
+{% block content %}
+{% endblock content %}
+
+    <footer>
+        <ul>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+        <p class="footer_footnote">This is just a learning project :)</p>
+    </footer>
+</body>
+</html>
