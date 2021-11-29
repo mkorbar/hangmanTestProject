@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 
-{% block nav_account %}Account / Log in{% endblock nav_account %}
-
 {% block content %}
 <h1>Let's play hangman!</h1>
-<p>If you'd like to store your scores, please log in or create an account</p>
+<p>If you'd like to store your scores, please <a href="/login">log in</a></p>
+
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+
+<form method="post" action="/game">
+    <label for="difficulty">How long do you want your hangman word to be?</label>
+    <input type="number" id="difficulty" name="difficulty" placeholder="Type word length here ...">
+    <button type="submit">Let's play!</button>
+</form>
 {% endblock content %}
