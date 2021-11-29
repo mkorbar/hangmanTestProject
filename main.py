@@ -13,10 +13,20 @@ def index():
         difficulty = int(request.form.get('difficulty'))
         wordlist = hangman.get_wordlist()
         error = hangman.difficulty_check(wordlist, difficulty)
-        if error is False:
+        if error:
             return render_template("index.html", error=error)
         else:
-            return render_template("index.html", error=error)
+            response = make_response(render_template("game.html"))
+            response.set_cookie("user_difficulty", str(difficulty))
+            return response
+
+
+@app.route("/game", methods=['POST', 'GET'])
+def game():
+    if request.method == 'GET':
+        return render_template("game.html")
+    elif request.method == 'POST':
+        return render_template("game.html")
 
 
 if __name__ == '__main__':
