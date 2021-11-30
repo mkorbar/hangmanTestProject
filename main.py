@@ -43,14 +43,13 @@ def game():
         masked_word = "".join(masked_letters)
         for letter in masked_letters:
             if letter == "*":
-                break
+                response = make_response(render_template("game.html", masked_word=masked_word))
+                response.set_cookie("masked_word", masked_word)
+                return response
             else:
                 msg_end = "Congratulations, you've guessed it!"
                 response = make_response(render_template("game.html", masked_word=masked_word, msg_end=msg_end))
                 return response
-        response = make_response(render_template("game.html", masked_word=masked_word))
-        response.set_cookie("masked_word", masked_word)
-        return response
 
 
 if __name__ == '__main__':
