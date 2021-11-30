@@ -4,8 +4,13 @@
 <h1>Let's play hangman!</h1>
 <p>If you'd like to store your scores, please <a href="/login">log in</a></p>
 
+
 {% if error %}
 <p>{{ error }}</p>
+{% endif %}
+
+{% if message %}
+<p>{{ message }}</p>
 {% endif %}
 
 <form method="post" action="/">

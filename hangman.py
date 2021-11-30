@@ -4,8 +4,8 @@ import random
 # define writing file if you need one
 
 def write_to_score_file(name, chosen_word, guesses):
-    with open('hangman_scores.txt', 'a') as score_file:
-        score_file.write(f"{name} {chosen_word} {str(guesses)}")
+    with open(f'{name}.txt', 'a') as score_file:
+        score_file.write(f"{chosen_word} {str(guesses)}\n")
 
 
 # HANGMAN GAME FUNCTION
