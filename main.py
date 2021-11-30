@@ -1,8 +1,24 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, redirect
+from flask_sqlalchemy import SQLAlchemy
 
 import hangman
+import os
 
 app = Flask(__name__)
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///db.sqlite')
+
+
+db = SQLAlchemy(app)
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    secret = db.Column(db.String, unique=False)
+
+
+db.create_all()
 
 
 @app.route("/", methods=['POST', 'GET'])
@@ -16,17 +32,39 @@ def index():
         if error:
             return render_template("index.html", error=error)
         else:
-            response = make_response(render_template("game.html"))
+            appropriate_words = hangman.get_appropriate_words(wordlist, difficulty)
+            secret_word = hangman.choose_random_word(appropriate_words)
+            secret_letters = hangman.word_to_letters(secret_word)
+            masked_letters = hangman.mask_word(secret_letters)
+            masked_word = "".join(masked_letters)
+            response = make_response(render_template("game.html", masked_word=masked_word))
             response.set_cookie("user_difficulty", str(difficulty))
+            response.set_cookie("secret_word", secret_word)
+            response.set_cookie("masked_word", masked_word)
             return response
 
 
 @app.route("/game", methods=['POST', 'GET'])
 def game():
     if request.method == 'GET':
-        return render_template("game.html")
+        return redirect("index.html")
     elif request.method == 'POST':
-        return render_template("game.html")
+        guess = request.form.get("guess")
+        secret_letters = list(request.cookies.get("secret_word"))
+        masked_letters = list(request.cookies.get("masked_word"))
+        interface_list = hangman.hangman_guess(secret_letters, masked_letters, guess)
+        masked_letters = interface_list.copy()
+        masked_word = "".join(masked_letters)
+        for letter in masked_letters:
+            if letter == "*":
+                break
+            else:
+                msg_end = "Congratulations, you've guessed it!"
+                response = make_response(render_template("game.html", masked_word=masked_word, msg_end=msg_end))
+                return response
+        response = make_response(render_template("game.html", masked_word=masked_word))
+        response.set_cookie("masked_word", masked_word)
+        return response
 
 
 if __name__ == '__main__':

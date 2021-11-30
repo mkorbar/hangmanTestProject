@@ -43,6 +43,11 @@ def get_appropriate_words(wordlist, user_difficulty):
 # choose random word and make it a list
 def choose_random_word(appropriate_words):
     word = random.choice(appropriate_words)
+    return word
+
+
+# turn random word into letters
+def word_to_letters(word):
     letters = list(word)
     return letters
 
@@ -57,11 +62,15 @@ def mask_word(letters):
 
 # what happens when user guesses
 def hangman_guess(letters, masked_letters, guess):
-    interface = ""
     for i, letter in enumerate(letters):
         if guess == letters[i]:
             masked_letters[i] = guess
-    return interface.join(masked_letters)  # print out new interface after guess
+    return masked_letters  # print out new interface after guess
+
+
+def join_interface(interface_list):
+    interface = "".join(interface_list)
+    return interface
 
 
 # check if entire word has been guessed yet

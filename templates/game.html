@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Guess the letters in the word below!</h1>
+<h2>{{ masked_word }}</h2>
+
+{% if msg_end %}
+<p>{{ msg_end }}</p>
+<form action="/">
+    <button type="submit">Play again!</button>
+</form>
+{% endif %}
+
+<form method="post" action="/game">
+    <label for="guess">Guess a letter in the secret word!</label>
+    <input id="guess" name="guess" type="text" placeholder="Guess a letter here ...">
+    <button type="submit">Submit</button>
+</form>
+
 {% endblock content %}
