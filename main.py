@@ -1,24 +1,10 @@
 from flask import Flask, render_template, request, make_response, redirect
-from flask_sqlalchemy import SQLAlchemy
+
 
 import hangman
-import os
+
 
 app = Flask(__name__)
-
-
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///db.sqlite')
-
-
-db = SQLAlchemy(app)
-
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    secret = db.Column(db.String, unique=False)
-
-
-db.create_all()
 
 
 @app.route("/", methods=['POST', 'GET'])
