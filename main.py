@@ -134,10 +134,10 @@ def game():
 
         msg_end = "Congratulations, you've guessed it!"
 
-        if session_token:
-            user = User.query.filter_by(session_token=session_token).first()
-            num_of_guesses = len(guess_list)
-            hangman.write_to_score_file(user.user_name, user.session_word, num_of_guesses)
+        # if session_token:
+        #    user = User.query.filter_by(session_token=session_token).first()
+        #    num_of_guesses = len(guess_list)
+        #    hangman.write_to_score_file(user.user_name, user.session_word, num_of_guesses)
 
         response = make_response(render_template("game.html",
                                                  masked_word=masked_word,
