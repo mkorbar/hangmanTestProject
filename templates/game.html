@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{{ masked_word }}</h2>
+<p>Guess which letters are in the masked word!</p>
+<p>Your guesses will be logged below.</p>
+
+<h1 class="maskedword">{{ masked_word }}</h1>
 
 <p>{{ guesses }}</p>
 
 {% if msg_end %}
-<p>{{ msg_end }}</p>
+<p class="success">{{ msg_end }}</p>
 <form action="/">
     <button type="submit">Play again!</button>
 </form>

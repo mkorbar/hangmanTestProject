@@ -46,9 +46,9 @@ def login():
             message = "New user created!"
         else:
             if user.user_password != hashed_password:
-                return render_template("/login", error="Password is incorrect")
+                return render_template("/login.html", error="Password is incorrect")
             if user.user_name != user_name:
-                return render_template("/login", error="Username is incorrect")
+                return render_template("/login.html", error="Username is incorrect")
             else:
                 message = "Welcome back!"
 
