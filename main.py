@@ -14,7 +14,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI', 'sqlite:///db.sqlite')
 
 
-db = SQLAlchemy(app)
+db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite").replace("postgres://", "postgresql://", 1)
+db = SQLAlchemy(db_url)
 
 
 class User(db.Model):
