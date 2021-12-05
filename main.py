@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, make_response, redirect
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+from sqla_wrapper import SQLAlchemy
 
 import hangman
 import os
@@ -10,8 +11,10 @@ import datetime
 
 app = Flask(__name__)
 
+# the replace method is needed due to this issue:
+# https://help.heroku.com/ZKNTJQSK/why-is-sqlalchemy-1-4-x-not-connecting-to-heroku-postgres
 
-db_url = os.getenv("SQLALCHEMY_DATABASE_URI", "sqlite:///db.sqlite").replace("postgres://", "postgresql://", 1)
+db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite").replace("postgres://", "postgresql://", 1)
 db = SQLAlchemy(db_url)
 
 
@@ -138,5 +141,5 @@ def game():
         return response
 
 
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    app.run(use_reloader=True)
