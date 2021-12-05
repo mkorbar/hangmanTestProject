@@ -11,7 +11,7 @@ import datetime
 app = Flask(__name__)
 
 
-db_url = os.getenv("DATABASE_URL", "sqlite:///db.sqlite").replace("postgres://", "postgresql://", 1)
+db_url = os.getenv("SQLALCHEMY_DATABASE_URI", "sqlite:///db.sqlite").replace("postgres://", "postgresql://", 1)
 db = SQLAlchemy(db_url)
 
 
