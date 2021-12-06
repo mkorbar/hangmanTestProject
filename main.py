@@ -40,7 +40,7 @@ def login():
         user_password = request.form.get("user_password")
         hashed_password = hashlib.sha256(user_password.encode()).hexdigest()
 
-        user = User.query.filter_by(user_email=user_email).first()
+        user = User.query().filter_by(user_email=user_email).first()
 
         if not user:
             user = User(user_name=user_name, user_email=user_email, user_password=hashed_password)
